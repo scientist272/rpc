@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * netty客户端，调用getClientInstance返回客户端，之后调用nextChannel获取连接
+ * netty客户端，调用getClientInstance返回客户端
  * getClientInstance happens before nextChannel
  */
 public class NettyClient {
@@ -180,7 +180,7 @@ public class NettyClient {
      * @return
      * @throws exception.NettyClientException
      */
-    public Channel nextChannel() throws NettyClientException {
+    private Channel nextChannel() throws NettyClientException {
         return getFirstActiveChannel(0);
     }
 
@@ -233,6 +233,21 @@ public class NettyClient {
             }
 
         }
+    }
+
+    /**
+     * 同步调用，对外暴露方法
+     * @param rpcRequest
+     * @return
+     * @throws NettyClientException
+     */
+    public RpcResponse syncSend(RpcRequest rpcRequest) throws NettyClientException {
+        try {
+            nextChannel().writeAndFlush(rpcRequest).await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+            return clientHandler.getResponse(rpcRequest.getRequestID());
     }
 
 }

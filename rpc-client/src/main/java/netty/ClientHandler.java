@@ -35,9 +35,12 @@ public class ClientHandler extends ChannelDuplexHandler {
         super.write(ctx, msg, promise);
     }
 
-    
-    //获取response
-    public RpcResponse getResponse(String requestID) {
+    /**
+     * 同步获取response
+     * @param requestID
+     * @return
+     */
+    public RpcResponse getResponseSyncronously(String requestID) {
 
         try {
             CompletableFuture<RpcResponse> future = futureMap.get(requestID);
@@ -48,5 +51,17 @@ public class ClientHandler extends ChannelDuplexHandler {
             futureMap.remove(requestID);
         }
         return null;
+    }
+
+
+
+    /**
+     * 异步调用
+     * @param requestID
+     * @return
+     */
+    public CompletableFuture<RpcResponse> getResponseAsyncronously(String requestID){
+        CompletableFuture<RpcResponse> future = futureMap.get(requestID);
+        return future;
     }
 }

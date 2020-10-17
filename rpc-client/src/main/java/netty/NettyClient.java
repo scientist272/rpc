@@ -15,6 +15,7 @@ import serialize.JSONSerializer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -27,8 +28,6 @@ public class NettyClient {
     private static final Logger logger = LoggerFactory.getLogger(NettyClient.class);
 
     private EventLoopGroup eventLoopGroup;
-
-    private Channel channel;
 
     private ClientHandler clientHandler;
 
@@ -247,7 +246,22 @@ public class NettyClient {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-            return clientHandler.getResponse(rpcRequest.getRequestID());
+            return clientHandler.getResponseSyncronously(rpcRequest.getRequestID());
+    }
+
+    /**
+     * 异步调用，对外暴露方法
+     * @param rpcRequest
+     * @return
+     * @throws NettyClientException
+     */
+    public CompletableFuture<RpcResponse> asyncSend(RpcRequest rpcRequest) throws NettyClientException {
+        try {
+            nextChannel().writeAndFlush(rpcRequest).await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return clientHandler.getResponseAsyncronously(rpcRequest.getRequestID());
     }
 
 }

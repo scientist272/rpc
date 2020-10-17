@@ -35,6 +35,7 @@ public class ClientHandler extends ChannelDuplexHandler {
         super.write(ctx, msg, promise);
     }
 
+    
     //获取response
     public RpcResponse getResponse(String requestID) {
 

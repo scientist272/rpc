@@ -7,7 +7,7 @@ import common.RpcResponse;
  */
 public class DefaultFuture {
 
-    private  RpcResponse rpcResponse;
+    private volatile RpcResponse rpcResponse;
 
     private volatile boolean isSuccess = false;
 

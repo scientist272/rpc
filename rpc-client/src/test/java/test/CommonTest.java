@@ -1,7 +1,9 @@
 package test;
 
 import com.sun.xml.internal.ws.util.CompletedFuture;
+import exception.NettyClientException;
 import io.netty.util.concurrent.CompleteFuture;
+import netty.NettyClient;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -57,5 +59,14 @@ public class CommonTest {
             }
         }
 
+    }
+
+    @Test
+    public void testClient(){
+        try {
+            NettyClient clientInstance = NettyClient.getClientInstance("127.0.0.1", 8000);
+        } catch (NettyClientException e) {
+            e.printStackTrace();
+        }
     }
 }

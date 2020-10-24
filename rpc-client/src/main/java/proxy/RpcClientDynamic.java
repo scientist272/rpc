@@ -42,7 +42,7 @@ public class RpcClientDynamic<T> implements InvocationHandler {
         logger.info("client request:{}",request);
 
         Properties properties = PropertiesLoaderUtils
-                .loadAllProperties("application.yaml");
+                .loadAllProperties("application.properties");
 
         String host =  properties.getProperty("rpc.server.host");
         int port = Integer.parseInt(properties.getProperty("rpc.server.port"));

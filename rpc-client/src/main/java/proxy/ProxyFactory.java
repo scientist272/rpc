@@ -23,7 +23,8 @@ public class ProxyFactory {
         if (proxyMap.get(clazz) == null) {
             synchronized (lock) {
                 if (proxyMap.get(clazz) == null) {
-                  return create(clazz);
+                    create(clazz);
+                    return (T) proxyMap.get(clazz);
                 } else {
                     return (T) proxyMap.get(clazz);
                 }
@@ -33,9 +34,8 @@ public class ProxyFactory {
         }
     }
 
-    private static <T> T create(Class<T> clazz) throws Exception {
-
-        return (T) proxyMap.put(clazz, Proxy.newProxyInstance(clazz.getClassLoader(),
+    private static <T> void create(Class<T> clazz) throws Exception {
+         proxyMap.put(clazz, Proxy.newProxyInstance(clazz.getClassLoader(),
                 new Class<?>[]{clazz}, new RpcClientDynamic<>(clazz)));
     }
 

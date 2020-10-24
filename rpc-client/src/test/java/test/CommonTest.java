@@ -5,6 +5,7 @@ import exception.NettyClientException;
 import io.netty.util.concurrent.CompleteFuture;
 import netty.NettyClient;
 import org.junit.Test;
+import proxy.ProxyFactory;
 
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
@@ -64,9 +65,12 @@ public class CommonTest {
     @Test
     public void testClient(){
         try {
-            NettyClient clientInstance = NettyClient.getClientInstance("127.0.0.1", 8000);
-        } catch (NettyClientException e) {
+            test.Test test = ProxyFactory.getProxy(test.Test.class);
+            test.Test("test");
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 }

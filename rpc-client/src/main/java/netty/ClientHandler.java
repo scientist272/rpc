@@ -3,6 +3,7 @@ package netty;
 import common.RpcRequest;
 import common.RpcResponse;
 import io.netty.channel.ChannelDuplexHandler;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
 
@@ -11,6 +12,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 
+@ChannelHandler.Sharable
 public class ClientHandler extends ChannelDuplexHandler {
 
     //记录每个请求id以及对应的future对象

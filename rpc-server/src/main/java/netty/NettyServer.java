@@ -6,16 +6,18 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import serialize.JSONSerializer;
 
 import javax.annotation.PreDestroy;
 
-
+@Component
 public class NettyServer implements InitializingBean {
 
     private EventLoopGroup boss;
@@ -24,17 +26,21 @@ public class NettyServer implements InitializingBean {
 
     private ServerBootstrap serverBootstrap;
 
-    @Autowired
-    private NettyServerHandler nettyServerHandler;
+    private final NettyServerHandler nettyServerHandler;
 
     private final Logger logger = LoggerFactory.getLogger(NettyServer.class);
 
     @Value("${rpc.server.port}")
     private int port;
 
+    @Autowired
+    public NettyServer(NettyServerHandler nettyServerHandler) {
+        this.nettyServerHandler = nettyServerHandler;
+    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
-
+        start();
     }
 
     /**
@@ -46,6 +52,7 @@ public class NettyServer implements InitializingBean {
 
         serverBootstrap = new ServerBootstrap();
         serverBootstrap
+                .channel(NioServerSocketChannel.class)
                 .group(boss, worker)
                 .option(ChannelOption.SO_BACKLOG, 1024)
                 .childHandler(new ChannelInitializer<SocketChannel>() {
@@ -68,7 +75,7 @@ public class NettyServer implements InitializingBean {
     }
 
     private void bind(ServerBootstrap serverBootstrap, int port) {
-        serverBootstrap.bind(port).addListener(future -> {
+        ChannelFuture channelFuture = serverBootstrap.bind(port).addListener(future -> {
             if (future.isSuccess()) {
                 logger.info("bind to port:{} successfully", port);
             } else {
@@ -76,6 +83,7 @@ public class NettyServer implements InitializingBean {
                 bind(serverBootstrap, port + 1);
             }
         });
+        channelFuture.awaitUninterruptibly();
     }
 
     @PreDestroy

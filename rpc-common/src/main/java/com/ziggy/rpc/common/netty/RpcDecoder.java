@@ -1,9 +1,9 @@
-package netty;
+package com.ziggy.rpc.common.netty;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
-import serialize.Serialize;
+import com.ziggy.rpc.common.serialize.Serialize;
 
 import java.util.List;
 

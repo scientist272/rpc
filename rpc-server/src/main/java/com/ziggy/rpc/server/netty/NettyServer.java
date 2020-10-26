@@ -1,7 +1,9 @@
-package netty;
+package com.ziggy.rpc.server.netty;
 
-import common.RpcRequest;
-import common.RpcResponse;
+import com.ziggy.rpc.common.netty.RpcDecoder;
+import com.ziggy.rpc.common.netty.RpcEncoder;
+import com.ziggy.rpc.common.protocol.RpcRequest;
+import com.ziggy.rpc.common.protocol.RpcResponse;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -13,7 +15,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import serialize.JSONSerializer;
+import com.ziggy.rpc.common.serialize.JSONSerializer;
 
 import javax.annotation.PreDestroy;
 

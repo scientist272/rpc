@@ -1,6 +1,6 @@
-package netty;
+package com.ziggy.rpc.common.netty;
 
-import common.RpcResponse;
+import com.ziggy.rpc.common.protocol.RpcResponse;
 
 /**
  * 每次调用对应一个独立future，不然会有线程安全问题

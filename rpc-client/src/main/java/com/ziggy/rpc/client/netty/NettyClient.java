@@ -1,8 +1,10 @@
-package netty;
+package com.ziggy.rpc.client.netty;
 
-import common.RpcRequest;
-import common.RpcResponse;
-import exception.NettyClientException;
+import com.ziggy.rpc.common.netty.RpcDecoder;
+import com.ziggy.rpc.common.netty.RpcEncoder;
+import com.ziggy.rpc.common.protocol.RpcRequest;
+import com.ziggy.rpc.common.protocol.RpcResponse;
+import com.ziggy.rpc.client.exception.NettyClientException;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -10,7 +12,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import serialize.JSONSerializer;
+import com.ziggy.rpc.common.serialize.JSONSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -177,7 +179,7 @@ public class NettyClient {
      * 获取可用的channel，连接复用
      *
      * @return
-     * @throws exception.NettyClientException
+     * @throws NettyClientException
      */
     private Channel nextChannel() throws NettyClientException {
         return getFirstActiveChannel(0);

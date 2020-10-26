@@ -1,7 +1,7 @@
-package netty;
+package com.ziggy.rpc.server.netty;
 
-import common.RpcRequest;
-import common.RpcResponse;
+import com.ziggy.rpc.common.protocol.RpcRequest;
+import com.ziggy.rpc.common.protocol.RpcResponse;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

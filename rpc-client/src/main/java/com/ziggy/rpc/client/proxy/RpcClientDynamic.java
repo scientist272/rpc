@@ -1,8 +1,8 @@
-package proxy;
+package com.ziggy.rpc.client.proxy;
 
-import common.RpcRequest;
-import common.RpcResponse;
-import netty.NettyClient;
+import com.ziggy.rpc.common.protocol.RpcRequest;
+import com.ziggy.rpc.common.protocol.RpcResponse;
+import com.ziggy.rpc.client.netty.NettyClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.support.PropertiesLoaderUtils;

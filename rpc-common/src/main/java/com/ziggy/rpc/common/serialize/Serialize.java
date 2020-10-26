@@ -1,4 +1,4 @@
-package serialize;
+package com.ziggy.rpc.common.serialize;
 
 import java.io.IOException;
 

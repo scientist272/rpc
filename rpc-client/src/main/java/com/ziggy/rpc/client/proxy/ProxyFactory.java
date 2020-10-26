@@ -1,4 +1,4 @@
-package proxy;
+package com.ziggy.rpc.client.proxy;
 
 import java.lang.reflect.Proxy;
 import java.util.Map;

@@ -1,15 +1,9 @@
 package test;
 
-import com.sun.xml.internal.ws.util.CompletedFuture;
-import exception.NettyClientException;
-import io.netty.util.concurrent.CompleteFuture;
-import netty.NettyClient;
 import org.junit.Test;
-import proxy.ProxyFactory;
+import com.ziggy.rpc.client.proxy.ProxyFactory;
 
-import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 
 public class CommonTest {
